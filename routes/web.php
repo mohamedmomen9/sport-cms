@@ -25,3 +25,5 @@ Route::get('/home', 'HomeController@index')->middleware('verified');
 Route::resource('seasons', 'SeasonController');
 
 Route::resource('weeks', 'WeekController');
+
+Route::resource('matches', 'MatchController');
