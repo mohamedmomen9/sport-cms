@@ -17,13 +17,8 @@ class MatchRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'title',
-        'description',
-        'title_ar',
-        'description_ar',
-        'image',
-        'video',
-        'week_id'
+        'week_num',
+        'year'
     ];
 
     /**
@@ -42,5 +37,15 @@ class MatchRepository extends BaseRepository
     public function model()
     {
         return Match::class;
+    }
+
+    public function seasons($search = [], $skip = null, $limit = null, $columns = ['*'])
+    {
+        $query = $this->allQuery($search, $skip, $limit);
+        return $query->join('weeks', 'weeks.id', '=', 'matches.week_id')
+                    ->join('seasons', 'seasons.id', '=', 'weeks.season_id')
+                    ->where('weeks.deleted_at', null)
+                    ->where('seasons.deleted_at', null)
+                    ->get($columns);
     }
 }

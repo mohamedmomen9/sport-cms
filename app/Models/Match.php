@@ -17,6 +17,57 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $image
  * @property string $video
  * @property integer $week_id
+ * @SWG\Definition(
+ *      definition="Match",
+ *      required={"title", "description", "title_ar", "description_ar", "week_id"},
+ *      @SWG\Property(
+ *          property="id",
+ *          description="id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="title",
+ *          description="title",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="description",
+ *          description="description",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="title_ar",
+ *          description="title_ar",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="description_ar",
+ *          description="description_ar",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="image",
+ *          description="image",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="video",
+ *          description="video",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="week_num",
+ *          description="week_num",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="year",
+ *          description="year",
+ *          type="string"
+ *      )
+ * )
  */
 class Match extends Model
 {
@@ -65,8 +116,13 @@ class Match extends Model
         'description' => 'required',
         'title_ar' => 'required',
         'description_ar' => 'required',
+        'image' => 'required',
+        'video' => 'required',
         'week_id' => 'required'
     ];
 
+    public function week(){
+        return $this->belongsTo(Week::class);
+    }
     
 }
