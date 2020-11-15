@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\Match;
 
 class MatchController extends AppBaseController
 {
@@ -54,7 +55,28 @@ class MatchController extends AppBaseController
      */
     public function store(CreateMatchRequest $request)
     {
-        $input = $request->all();
+        $videoNew = null;
+        $imageNew = null;
+        if ($request->hasFile('image') && $request->hasFile('video')) {
+
+            $imagExt = strtoupper($request->file('image')->getClientOriginalExtension());
+            $videoExt = strtoupper($request->file('video')->getClientOriginalExtension());
+
+            $imageNew = time() . '.' . $imagExt;
+            $videoNew = time() . '.' . $videoExt;
+
+            $request->file('image')->storeAs('public/uploads/', $imageNew);
+            $request->file('video')->storeAs('public/uploads/', $videoNew);
+        }
+
+        $input = [];
+        $input['title'] = $request->title;
+        $input['description'] = $request->description;
+        $input['title_ar'] = $request->title_ar;
+        $input['description_ar'] = $request->description_ar;
+        $input['week_id'] = $request->week_id;
+        $input['image'] = $imageNew;
+        $input['video'] = $videoNew;
 
         $match = $this->matchRepository->create($input);
 

@@ -25,12 +25,17 @@
 <!-- Image Field -->
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
+    <br>
+    <img width="320" height="240" src="{{ URL::to('/storage/uploads/'. $match->image ) }}" alt="NoImg">
     <p>{{ $match->image }}</p>
 </div>
 
 <!-- Video Field -->
 <div class="form-group">
     {!! Form::label('video', 'Video:') !!}
+    <br>
+    <video style="outline: none" width="320" height="240" controls>
+        <source src="{{ URL::to('/storage/uploads/'. $match->video ) }}">
     <p>{{ $match->video }}</p>
 </div>
 

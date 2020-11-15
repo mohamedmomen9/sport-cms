@@ -116,8 +116,8 @@ class Match extends Model
         'description' => 'required',
         'title_ar' => 'required',
         'description_ar' => 'required',
-        'image' => 'required',
-        'video' => 'required',
+        'image' => 'required|image',
+        'video' => 'required|file',
         'week_id' => 'required'
     ];
 
